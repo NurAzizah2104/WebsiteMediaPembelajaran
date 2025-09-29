@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Media Pembelajaran IPS SD - Lingkungan Sosial & Ekonomi</title>
+  <meta name="description" content="Materi IPS SD: Lingkungan Sosial dan Ekonomi Sekitar. Slide interaktif, kuis singkat, contoh soal (PG, isian, uraian), dan kesimpulan. Mobile-friendly & aesthetic.">
+  <meta name="keywords" content="IPS SD, Pembelajaran IPS, Lingkungan Sosial, Ekonomi, SD, Slide Interaktif, Kuis, Soal">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo="> 
+  <meta name="author" content="Nur Azizah">
+  <style>
+    :root{
+      --bg: #f6f7fb; --card: #ffffff; --muted: #6b7280;
+      --accent1: #7dd3fc; --accent2: #c7b8ff; --accent3: #ffd6a5; --accent4: #b6f0c9;
+      --accent5: #ffb3ba; --accent6: #ffdfba; --accent7: #ffffba; --accent8: #baffc9;
+      --radius: 16px; --shadow: 0 6px 18px rgba(16,24,40,0.08);
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Inter', ui-sans-serif, system-ui;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body,#app{height:100%; overflow-x:hidden}
+    body{
+      background: linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+      color: #0f172a;
+      line-height: 1.5;
+      font-size: 18px;
+      -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
+    }
+
+    .wrap{
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 12px;
+      animation: fadeIn 1s ease-in;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    header{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+      animation: slideIn 1s ease-in-out;
+      padding: 12px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .header-top{
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .logo{
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #042a2b;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      animation: bounce 2s infinite;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .header-text{
+      flex-grow: 1;
+    }
+    
+    h1{
+      font-size: 20px;
+      animation: fadeUp 1s ease-in-out;
+      line-height: 1.2;
+    }
+    
+    p.lead{
+      color: var(--muted);
+      font-size: 16px;
+      animation: fadeUp 1.5s ease-in-out;
+      margin-top: 4px;
+    }
+    
+    .header-nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 0 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      margin-top: 8px;
+    }
+    
+    .nav-info{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    .slide-counter{
+      font-weight: bold;
+      color: var(--accent2);
+    }
+
+    .viewer{
+      position: relative;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: scaleUp 1s ease-in-out;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 60vh;
+    }
+    
+    .slides{
+      display: flex;
+      transition: transform .6s cubic-bezier(.22,.9,.25,1);
+      touch-action: pan-y;
+      flex-grow: 1;
+      height: 100%;
+    }
+    
+    .slide{
+      min-width: 100%;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all .8s ease-in-out;
+      overflow-y: auto;
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .slide.active{
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .slide-inner{
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent);
+      border-radius: 12px;
+      padding: 16px;
+      animation: fadeIn 1s ease-in;
+      flex-grow: 1;
+    }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      animation: fadeUp 1.2s ease-in-out;
+      background: rgba(255,255,255,0.8);
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .btn{
+      background: transparent;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      font-size: 18px;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn:hover, .btn:active{
+      transform: scale(1.1);
+    }
+    
+    .btn.primary{
+      background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      color: #062a2b;
+      font-weight: 600;
+      box-shadow: 0 6px 12px rgba(99,102,241,0.08);
+    }
+    
+    .dots{
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .dot{
+      width: 10px;
+      height: 10px;
+      background: #e6e9ef;
+      border-radius: 999px;
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+    
+    .dot.active{
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      transform: scale(1.3);
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), var(--card));
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,0.04);
+      animation: fadeIn 1s ease-in;
+      margin-bottom: 12px;
+    }
+
+    .choices{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeUp 1s ease-in-out;
+      margin-top: 12px;
+    }
+    
+    .choice{
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,0.03);
+      cursor: pointer;
+      transition: all .3s ease;
+      font-size: 16px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .choice:hover, .choice:active{
+      transform: scale(1.02);
+      background: #e0f7fa;
+    }
+    
+    .choice.selected{
+      outline: 3px solid rgba(125,211,252,0.22);
+      background: #ffffff;
+      animation: pulse 1s infinite;
+    }
+    
+    .answer{
+      margin-top: 12px;
+      font-size: 16px;
+      color: green;
+      font-weight: 500;
+      display: none;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(0,255,0,0.1);
+    }
+
+    input[type="text"], textarea{
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,0.06);
+      background: transparent;
+      transition: all .3s ease;
+      font-size: 16px;
+      margin-top: 8px;
+      min-height: 50px;
+    }
+    
+    input:focus, textarea:focus{
+      transform: scale(1.02);
+      box-shadow: 0 0 8px rgba(125,211,252,0.5);
+      outline: none;
+    }
+
+    .conclusion{
+      padding: 16px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, var(--accent4), #ffffff);
+      animation: fadeUp 1s ease-in-out;
+    }
+
+    footer{
+      margin-top: 12px;
+      text-align: center;
+      padding: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      animation: fadeIn 2s ease-in;
+    }
+
+    h2 {
+      color: #0f4c75;
+      margin-bottom: 12px;
+      font-size: 22px;
+      border-bottom: 2px solid var(--accent1);
+      padding-bottom: 8px;
+    }
+    
+    h3 {
+      color: #3282b8;
+      margin: 12px 0 8px;
+      font-size: 18px;
+    }
+    
+    ul, ol {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    p {
+      margin-bottom: 12px;
+    }
+    
+    .emoji {
+      font-size: 24px;
+      margin-right: 8px;
+    }
+    
+    .highlight {
+      background: linear-gradient(120deg, var(--accent7), var(--accent6));
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    
+    .fun-fact {
+      background: linear-gradient(120deg, var(--accent5), var(--accent6));
+      padding: 12px;
+      border-radius: 12px;
+      margin: 12px 0;
+      border-left: 4px solid var(--accent5);
+    }
+    
+    .progress-bar {
+      height: 6px;
+      background: #e6e9ef;
+      border-radius: 3px;
+      margin: 8px 0;
+      overflow: hidden;
+      width: 100%;
+    }
+    
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    .quiz-score {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 16px 0;
+      color: var(--accent2);
+    }
+    
+    .correct-answer {
+      color: green;
+      font-weight: bold;
+    }
+    
+    .wrong-answer {
+      color: red;
+      text-decoration: line-through;
+    }
+    
+    .header-btns {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .header-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .3s ease;
+      font-size: 16px;
+      min-width: 40px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(125, 211, 252, 0.2);
+    }
+    
+    .header-btn:hover, .header-btn:active {
+      background: rgba(125, 211, 252, 0.4);
+      transform: scale(1.05);
+    }
+    
+    .header-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    @media (max-width: 600px){
+      .wrap{padding: 8px; margin: 0}
+      .logo{width: 50px; height: 50px; font-size: 20px}
+      h1{font-size: 18px}
+      p.lead{font-size: 14px}
+      .btn{padding: 10px 14px; font-size: 16px}
+      .slide{padding: 12px}
+      .slide-inner{padding: 12px}
+      .choice{padding: 12px; font-size: 16px}
+      input[type="text"], textarea{padding: 12px; font-size: 16px}
+      .header-nav {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .header-btns {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+    
+    @media (max-width: 400px){
+      .header-top{flex-direction: column; text-align: center; gap: 8px}
+      .logo{margin: 0 auto}
+      h1{font-size: 16px}
+    }
+
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideIn{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}60%{transform:translateY(-4px)}}
+    @keyframes scaleUp{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+    @keyframes confetti{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(100vh) rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header>
+      <div class="header-top">
+        <div class="logo">IPS</div>
+        <div class="header-text">
+          <h1>Media pembelajaran IPS SD berbasis web</h1>
+          <p class="lead">Tema: <strong>Lingkungan Sosial & Ekonomi Sekitar</strong></p>
+        </div>
+      </div>
+      
+      <div class="header-nav">
+        <div class="nav-info">
+          <span class="slide-counter">Slide <span id="current-slide">1</span> dari <span id="total-slides">9</span></span>
+          <div class="progress-bar">
+            <div class="progress" id="header-progress" style="width: 11%"></div>
+          </div>
+        </div>
+        
+        <div class="header-btns">
+          <button class="header-btn" id="header-prev" title="Slide Sebelumnya">◀</button>
+          <button class="header-btn" id="header-next" title="Slide Berikutnya">▶</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="viewer">
+      <div class="slides" id="slides">
+        <!-- Slide 00: Pengenalan -->
+        <div class="slide active">
+          <div class="slide-inner">
+            <h2>Kelompok 5</h2>
+            <ul>
+              <h3>Nama Anggota Kelompok:</h3>
+              <li><span class="emoji">✅</span> Nur Azizah (23354015)</li>
+              <li><span class="emoji">✅</span> Silvia Anggraini (23354025)</li>
+              <li><span class="emoji">✅</span> Wita Anggelina (23354030)</li>
+            </ul> <br>
+            <P><b>Dosen pengampu: Dr. Yeni Erita, M.Pd</b> <br><br> Mata kuliah: Inovasi Pembelajaran IPS SD Berbasis Digital <br><br> Tema: Lingkungan Sosial dan Ekonomi Sekitar (kelas 3, fase B)</P>
+            <div class="progress-bar">
+              <div class="progress" style="width: 11%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 0: Pengenalan -->
+        <div class="slide active">
+          <div class="slide-inner">
+            <h2>Selamat Belajar! <span class="emoji">👋</span></h2>
+            <p>Halo teman-teman! Hari ini kita akan belajar tentang <span class="highlight">lingkungan sosial dan ekonomi</span> di sekitar kita.</p>
+            <div class="fun-fact">
+              <p><span class="emoji">💡</span> Tahukah kamu? Setiap hari kita berinteraksi dengan lingkungan sosial dan ekonomi!</p>
+            </div>
+            <p>Mari kita mulai petualangan belajar yang menyenangkan!</p>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 11%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 1: Tujuan -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Tujuan Pembelajaran <span class="emoji">🎯</span></h2>
+            <ul>
+              <h3>Setelah mengikuti pembelajaran, Diharapkan:</h3>
+              <li><span class="emoji">✅</span> Dapat Menjelaskan pengertian lingkungan sosial dan ekonomi.</li>
+              <li><span class="emoji">✅</span> Mampu Menyebutkan contoh kegiatan di lingkungan sosial dan ekonomi.</li>
+              <li><span class="emoji">✅</span> Dapat Menunjukkan sikap peduli terhadap kegiatan di lingkungan sosial.</li>
+              <li><span class="emoji">✅</span> Mampu Menjelaskan pentingnya lingkungan ekonomi dalam kehidupan sehari-hari.</li>
+              <li><span class="emoji">✅</span> Mampu Menjelaskan peran individu dalam lingkungan sosial dan lingkungan ekonomi.</li>
+              <li><span class="emoji">✅</span> Dapat Menjelaskan hubungan antara lingkungan sosial dan ekonomi.</li>
+            </ul>
+            <div class="progress-bar">
+              <div class="progress" style="width: 22%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Materi -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Materi: Lingkungan Sosial <span class="emoji">👨‍👩‍👧‍👦</span></h2>
+            <p><span class="emoji">📚</span> Pengertian:<br>
+            Lingkungan sosial adalah lingkungan yang berhubungan dengan manusia di sekitar kita. Di dalamnya terdapat berbagai interaksi, kerja sama, dan hubungan antarindividu maupun kelompok.</p>
+            
+            <div class="card">
+              <p><b><span class="emoji">🏠</span> Contoh Lingkungan Sosial:</b></p>
+              <ul>
+                <li>Keluarga → ayah, ibu, kakak, adik.</li>
+                <li>Tetangga → orang-orang yang tinggal di sekitar rumah kita.</li>
+                <li>Teman sekolah → teman sebangku, teman sekelas, guru.</li>
+                <li>Masyarakat → orang-orang yang tinggal satu daerah, desa, atau kota.</li>
+              </ul>
+            </div>
+            
+            <div class="card">
+              <p><b><span class="emoji">🎉</span> Contoh Kegiatan di Lingkungan Sosial:</b></p>
+              <ul>
+                <li>Kerja bakti membersihkan lingkungan.</li>
+                <li>Arisan RT sebagai ajang silaturahmi.</li>
+                <li>Gotong royong memperbaiki fasilitas umum.</li>
+                <li>Acara perayaan hari besar bersama masyarakat.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <p><b><span class="emoji">📚</span> Manfaat Lingkungan Sosial:</b></p>
+              <ul>
+                <li>Menumbuhkan sikap gotong royong.</li>
+                <li>Mengajarkan kebersamaan.</li>
+                <li>Membentuk rasa peduli antar sesama.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <p><b><span class="emoji">📚</span> Peran Individu dalam Lingkungan Sosial:</b><br>Setiap orang memiliki peran penting untuk menjaga kerukunan dan keharmonisan di lingkungan sosial.<br> Contoh perannya antara lain:</p>
+              <ul>
+                <li>Di keluarga, anak-anak dapat membantu orang tua membersihkan rumah dan saling menghormati antar anggota keluarga.</li>
+                <li>Di lingkungan tetangga, kita dapat ikut kerja bakti, saling menyapa, menjaga keamanan, dan membantu tetangga yang membutuhkan.</li>
+                <li>Di sekolah, siswa dapat menunjukkan sikap peduli dengan membantu teman, menjaga kebersihan kelas, dan mematuhi aturan sekolah.</li>
+                <li>Di masyarakat, kita dapat berpartisipasi dalam kegiatan bersama seperti gotong royong, arisan RT, perayaan hari besar, dan kegiatan ronda malam.</li>
+              </ul>
+              <P>Dengan menjalankan peran tersebut, suasana lingkungan menjadi rukun, aman, nyaman, dan saling mendukung satu sama lain.</P>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 33%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Materi Ekonomi -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Materi: Lingkungan Ekonomi <span class="emoji">💰</span></h2>
+            <p><span class="emoji">📚</span> Lingkungan ekonomi adalah lingkungan tempat orang melakukan kegiatan ekonomi, yaitu kegiatan produksi (membuat barang/jasa), distribusi (menyalurkan barang/jasa), dan konsumsi (memakai barang/jasa).</p>
+            
+            <div class="card">
+              <p><b><span class="emoji">🛒</span> Contoh Lingkungan Ekonomi:</b></p>
+              <ul>
+                <li>Pasar → tempat orang membeli dan menjual barang.</li>
+                <li>Toko atau warung → menyediakan barang kebutuhan sehari-hari.</li>
+                <li>Koperasi → tempat simpan pinjam atau penyedia kebutuhan anggota.</li>
+              </ul>
+            </div>
+            
+            <div class="card">
+              <p><b><span class="emoji">👷</span> Contoh Pekerjaan di Lingkungan Ekonomi:</b></p>
+              <ul>
+                <li>Petani → memproduksi hasil pertanian.</li>
+                <li>Nelayan → mencari ikan di laut.</li>
+                <li>Pedagang → menjual barang kebutuhan masyarakat.</li>
+                <li>Guru/Dokter → memberikan jasa dalam bidang pendidikan dan kesehatan.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <p><b><span class="emoji">📚</span> Manfaat Lingkungan Ekonomi:</b></p>
+              <ul>
+                <li>Membantu masyarakat memenuhi kebutuhan sehari-hari.</li>
+                <li>Memberikan lapangan pekerjaan.</li>
+                <li>Meningkatkan kesejahteraan bersama.</li>
+                
+              </ul>
+            </div>
+
+            <div class="card">
+              <p><b><span class="emoji">📚</span>  Peran Individu dalam Lingkungan Ekonomi :</b><br>Dalam kehidupan sehari-hari, setiap orang juga berperan dalam kegiatan ekonomi. Ada tiga peran penting yang sering dilakukan, yaitu sebagai produsen, distributor, dan konsumen.</p>
+              <ul>
+                <li>Produsen adalah orang yang menghasilkan barang atau jasa. Contohnya petani menanam padi, penjahit membuat pakaian, atau tukang membuat kursi.</li>
+                <li>Distributor adalah orang yang menyalurkan barang dari produsen kepada masyarakat. Contohnya sopir yang mengantar sayur ke pasar atau pedagang keliling yang menjual barang ke rumah-rumah.</li>
+                <li>Konsumen adalah orang yang menggunakan barang atau jasa. Contohnya ibu yang membeli sayur di pasar, siswa yang membeli alat tulis, atau keluarga yang menggunakan jasa tukang.</li>
+                
+              </ul>
+              <P>Ketiga peran ini saling berkaitan dan membantu kegiatan ekonomi berjalan dengan lancar di masyarakat.</P>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 44%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Materi Ekonomi -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Hubungan Antara Lingkungan Sosial dan Ekonomi <span class="emoji">🌟</span></h2>
+            <p><b>Lingkungan sosial dan ekonomi saling berkaitan erat.</b> <br>Contohnya, saat masyarakat bekerja sama membersihkan pasar, lingkungan sosial menjadi rukun dan lingkungan ekonomi juga menjadi lebih nyaman untuk kegiatan jual beli. Pedagang dan pembeli juga saling membutuhkan: pedagang menyediakan barang, sementara pembeli membeli untuk memenuhi kebutuhannya. <br> Selain itu, ketika masyarakat bergotong royong membangun jembatan atau jalan desa, hasil pertanian akan lebih mudah dibawa ke pasar. Hal ini menunjukkan bahwa kegiatan sosial dan ekonomi saling mendukung dan tidak bisa dipisahkan.</p><br><br>
+            
+             
+
+            <h2>Manfaat Lingkungan Sosial dan Ekonomi <span class="emoji">🌟</span></h2>
+            <p>Kedua lingkungan ini saling berkaitan dan memberikan manfaat besar bagi kehidupan kita, antara lain:</p>
+            
+            <div class="card">
+              <ul>
+                <li><span class="emoji">🤝</span> Menumbuhkan sikap saling menolong dan kebersamaan.</li>
+                <li><span class="emoji">🛍️</span> Membantu memenuhi kebutuhan hidup sehari-hari.</li>
+                <li><span class="emoji">🎓</span> Menjadi tempat kita belajar berinteraksi, bekerja sama, dan saling menghargai.</li>
+              </ul>
+            </div>
+            
+            <div class="fun-fact">
+              <p><span class="emoji">💡</span> Tahukah kamu? Tanpa lingkungan sosial dan ekonomi, hidup kita akan sangat berbeda dan lebih sulit!</p>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 56%"></div>
+            </div>
+          </div>
+        </div>
+
+       
+
+        <!-- Slide 5: Contoh Soal PG -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Contoh Soal Pilihan Ganda <span class="emoji">❓</span></h2>
+            
+            <div class="card">
+              <p>1. Lingkungan yang terdiri dari orang-orang di sekitar kita disebut ...</p>
+              <div class="choices">
+                <div class="choice" data-answer="false">A. Lingkungan alam</div>
+                <div class="choice" data-answer="true">B. Lingkungan sosial</div>
+                <div class="choice" data-answer="false">C. Lingkungan buatan</div>
+              </div>
+              <div class="answer">Jawaban benar: B. Lingkungan sosial</div>
+            </div>
+            
+            <div class="card">
+              <p>2. Berikut ini yang termasuk lingkungan ekonomi adalah ...</p>
+              <div class="choices">
+                <div class="choice" data-answer="false">A. Rumah</div>
+                <div class="choice" data-answer="false">B. Sawah</div>
+                <div class="choice" data-answer="true">C. Pasar</div>
+              </div>
+              <div class="answer">Jawaban benar: C. Pasar</div>
+            </div>
+
+            <div class="card">
+              <p>3. Kegiatan kerja bakti di kampung termasuk contoh kegiatan di ...</p>
+              <div class="choices">
+                <div class="choice" data-answer="true">A.  Lingkungan sosial</div>
+                <div class="choice" data-answer="false">B.  Lingkungan ekonomi</div>
+                <div class="choice" data-answer="false">C.  Lingkungan buatan</div>
+              </div>
+              <div class="answer">Jawaban benar: A.  Lingkungan sosial</div>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 67%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6: Soal Isian -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Contoh Soal Isian <span class="emoji">✏️</span></h2>
+            
+            <div class="card">
+              <p>1. Orang yang bekerja sebagai petani termasuk dalam kegiatan ........</p>
+              <input type="text" placeholder="Tulis jawabanmu di sini...">
+              <div class="answer">Jawaban: Kegiatan Ekonomi</div>
+            </div>
+            
+            <div class="card">
+              <p>2. Tempat jual beli barang kebutuhan sehari-hari disebut ........</p>
+              <input type="text" placeholder="Tulis jawabanmu di sini...">
+              <div class="answer">Jawaban: Pasar</div>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 78%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 7: Soal Uraian -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>Contoh Soal Uraian <span class="emoji">📝</span></h2>
+            
+            <div class="card">
+              <p>Jelaskan perbedaan lingkungan sosial dan lingkungan ekonomi yang kamu ketahui!</p>
+              <textarea rows="3" placeholder="Tulis jawabanmu di sini..."></textarea>
+              <div class="answer">Jawaban: Lingkungan sosial berkaitan dengan hubungan antar manusia, sedangkan lingkungan ekonomi berkaitan dengan kegiatan mencari nafkah.</div>
+            </div>
+            
+            <div class="card">
+              <p>Sebutkan 2 contoh kegiatan ekonomi di lingkungan sekitarmu!</p>
+              <textarea rows="2" placeholder="Jawabanmu..."></textarea>
+              <div class="answer">Jawaban: Contoh: berjualan di warung, bekerja di kantor, bertani di sawah, dll.</div>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 89%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Contoh Soal PG -->
+        <div class="slide">
+          <div class="slide-inner">
+            <h2>QUIZ SINGKAT <span class="emoji">❓</span></h2>
+            
+            <div class="card">
+              <p>1. Sebutkan perbedaan lingkungan sosial dan lingkungan ekonomi!</p>
+              <textarea rows="2" placeholder="Jawabanmu..."></textarea>
+              <div class="answer">Jawaban: Lingkungan sosial adalah lingkungan yang berhubungan dengan manusia di sekitar kita, seperti keluarga dan tetangga. Sedangkan lingkungan ekonomi adalah lingkungan tempat orang melakukan kegiatan ekonomi, seperti pasar dan toko.</div>
+              
+            </div>
+            
+            <div class="card">
+              <p>2. Jika tidak ada pedagang di pasar, apa yang akan terjadi pada masyarakat?</p>
+              <textarea rows="2" placeholder="Jawabanmu..."></textarea>
+              <div class="answer">Jawaban: Masyarakat akan kesulitan membeli barang kebutuhan sehari-hari karena tidak ada yang menjual dan menyalurkan barang.</div>
+              
+            </div>
+
+            <div class="card">
+              <p>3. Bagaimana sikapmu ketika ada kerja bakti di lingkungan rumahmu?</p>
+              <textarea rows="2" placeholder="Jawabanmu..."></textarea>
+              <div class="answer">Jawaban: Saya akan ikut serta dengan semangat, bekerja sama dengan tetangga, dan membantu menjaga kebersihan lingkungan.</div>
+              
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 67%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 8: Kesimpulan -->
+        <div class="slide">
+          <div class="slide-inner conclusion">
+            <h2>Kesimpulan <span class="emoji">🎓</span></h2>
+            <p><span class="emoji">✅</span> Lingkungan sosial adalah lingkungan yang terdiri dari manusia di sekitar kita, seperti keluarga, tetangga, dan masyarakat.</p>
+            <p><span class="emoji">✅</span> Lingkungan ekonomi adalah lingkungan tempat orang melakukan kegiatan ekonomi untuk memenuhi kebutuhan hidup.</p>
+            <p><span class="emoji">✅</span> Kedua lingkungan ini sangat penting karena membantu kita dalam kehidupan sehari-hari, baik secara sosial maupun ekonomi.</p>
+            <p><span class="emoji">✅</span> Sebagai siswa, kita harus peduli, aktif, dan ikut serta dalam kegiatan di lingkungan sosial maupun ekonomi.</p>
+            <div class="quiz-score">
+              <p>Selamat! Kamu telah menyelesaikan pembelajaran ini! <span class="emoji">🎉</span></p>
+            </div>
+            
+            <div class="fun-fact">
+              <p><span class="emoji">🌟</span> Teruslah belajar dan eksplorasi lingkungan sekitarmu!</p>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <button class="btn" id="prev">◀</button>
+        <button class="btn primary" id="next">▶</button>
+        <div class="dots" id="dots"></div>
+      </div>
+    </main>
+
+    <footer>
+      © 2025 Media pembelajaran IPS SD berbasis web | Dibuat dengan ❤ untuk siswa Indonesia
+    </footer>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let idx = 0;
+
+    function update(){
+      document.getElementById('slides').style.transform = `translateX(-${idx*100}%)`;
+      slides.forEach((s,i)=>{ 
+        s.classList.toggle('active', i===idx);
+        // Update progress bar
+        const progress = s.querySelector('.progress');
+        if(progress) {
+          const width = ((i+1) / slides.length) * 100;
+          progress.style.width = `${width}%`;
+        }
+      });
+      
+      // Update header information
+      document.getElementById('current-slide').textContent = idx + 1;
+      document.getElementById('total-slides').textContent = slides.length;
+      document.getElementById('header-progress').style.width = `${((idx+1) / slides.length) * 100}%`;
+      
+      // Update button states
+      document.getElementById('prev').disabled = idx === 0;
+      document.getElementById('next').disabled = idx === slides.length - 1;
+      document.getElementById('header-prev').disabled = idx === 0;
+      document.getElementById('header-next').disabled = idx === slides.length - 1;
+      
+      const dotsEl = document.getElementById('dots');
+      dotsEl.innerHTML = '';
+      slides.forEach((s,i)=>{ 
+        let d = document.createElement('div'); 
+        d.className = 'dot' + (i===idx ? ' active' : ''); 
+        d.addEventListener('click', () => {
+          idx = i;
+          update();
+        });
+        dotsEl.appendChild(d); 
+      });
+    }
+    
+    document.getElementById('next').addEventListener('click',()=>{ 
+      idx = Math.min(idx+1, slides.length-1); 
+      update(); 
+    });
+    
+    document.getElementById('prev').addEventListener('click',()=>{ 
+      idx = Math.max(idx-1, 0); 
+      update(); 
+    });
+    
+    document.getElementById('header-next').addEventListener('click',()=>{ 
+      idx = Math.min(idx+1, slides.length-1); 
+      update(); 
+    });
+    
+    document.getElementById('header-prev').addEventListener('click',()=>{ 
+      idx = Math.max(idx-1, 0); 
+      update(); 
+    });
+
+    // Add swipe support for mobile
+    let startX = 0;
+    let endX = 0;
+    
+    document.getElementById('slides').addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+    
+    document.getElementById('slides').addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX;
+      handleSwipe();
+    });
+    
+    function handleSwipe() {
+      const diff = startX - endX;
+      const minSwipeDistance = 50;
+      
+      if (Math.abs(diff) > minSwipeDistance) {
+        if (diff > 0 && idx < slides.length - 1) {
+          // Swipe left - next slide
+          idx++;
+        } else if (diff < 0 && idx > 0) {
+          // Swipe right - previous slide
+          idx--;
+        }
+        update();
+      }
+    }
+
+    document.querySelectorAll('.choice').forEach(choice => {
+      choice.addEventListener('click', () => {
+        const parent = choice.parentElement;
+        parent.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+        choice.classList.add('selected');
+        const answerEl = parent.parentElement.querySelector('.answer');
+        if(choice.dataset.answer === "true"){
+          answerEl.style.display = 'block';
+          answerEl.style.color = 'green';
+          answerEl.innerHTML = '<span class="emoji">✅</span> Jawaban benar: ' + choice.textContent;
+        } else {
+          answerEl.style.display = 'block';
+          answerEl.style.color = 'red';
+          answerEl.innerHTML = '<span class="emoji">❌</span> Jawaban salah. Coba lagi!';
+        }
+      });
+    });
+
+    // Tampilkan jawaban otomatis untuk isian dan uraian jika diklik
+    document.querySelectorAll('input, textarea').forEach(el => {
+      el.addEventListener('blur', () => {
+        const ans = el.parentElement.querySelector('.answer');
+        if(ans) {
+          ans.style.display = 'block';
+          // Add a small delay to show the answer
+          setTimeout(() => {
+            ans.style.opacity = '1';
+          }, 300);
+        }
+      });
+    });
+
+    // Initialize
+    update();
+  </script>
+</body>
+</html>
